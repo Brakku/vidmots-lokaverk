@@ -1,42 +1,38 @@
-
-let client; // Declare a variable for the MQTT client
+let client;
 
 try {
-  // Attempt to connect to the MQTT broker via WebSocket (port 9001)
-  client = mqtt.connect("ws://192.168.68.179:9001");
+    client = mqtt.connect("ws://192.168.68.179:9001");
 } catch (e) {
-  // Log any connection errors
-  console.log(e);
+    console.log(e);
 }
 
-// Event listener for successful MQTT connection
 client.on("connect", () => {
-  console.log("Connected to MQTT broker!");
+    console.log("Connected to MQTT broker!");
+});
 
-  // Subscribe to the "test" topic
-  client.subscribe("test", (err) => {
-    if (!err) {
-      console.log("Subscribed to topic: test");
+// Function to send a message to a specified topic
+function sendMessage() {
+    const topic = document.getElementById("topicInput").value.trim();
+    const message = document.getElementById("messageInput").value.trim();
 
-      // Publish a message to the "test" topic
-      client.publish("test", "Hello mqtt");
-      console.log("Message published: Hello mqtt");
-    } else {
-      console.error("Subscription error:", err);
+    if (topic === "" || message === "") {
+        console.warn("Topic and message cannot be empty!");
+        return;
     }
-  });
-});
 
-// Event listener for incoming messages
+    client.publish(topic, message);
+    console.log(`Message published to '${topic}': ${message}`);
+}
+
+// Attach event listener to the button
+document.getElementById("sendButton").addEventListener("click", sendMessage);
+
+// Listen for incoming messages (subscribe to any topic entered)
 client.on("message", (topic, message) => {
-  // Convert the received message (Buffer) to a string and print it
-  console.log(`Received message on topic '${topic}': ${message.toString()}`);
-
-  // Close the MQTT connection after receiving a message
-  client.end();
+    console.log(`Received message on '${topic}': ${message.toString()}`);
 });
 
-// Event listener for errors
+// Error handling
 client.on("error", (err) => {
-  console.error("MQTT Error:", err);
+    console.error("MQTT Error:", err);
 });

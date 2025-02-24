@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>MQTT Message Sender</title>
 </head>
 <body>
+    <h2>Send MQTT Message</h2>
+
+    <label for="topicInput">Topic:</label>
+    <input type="text" id="topicInput" placeholder="Enter topic" value="test">
+
+    <br><br>
+
+    <label for="messageInput">Message:</label>
+    <input type="text" id="messageInput" placeholder="Enter message">
+
+    <br><br>
+
+    <button id="sendButton">Send</button>
+
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <script src="main.js"></script>
-
-
 </body>
 </html>
