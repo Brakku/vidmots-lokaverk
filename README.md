@@ -1,5 +1,6 @@
 [luaMQTT](https://github.com/WhyKickAmooCow/luamqtt-computercraft) er notaður sem grunn fyrir lua client
 
+# verkefnið er ekki búið
 
 til að nota kerfið þá þarft þú að hafa Minecraft á tölfuni og modloder ([Cursforge appið](https://www.curseforge.com/download/app) er mælt með) og það þerf að download [cc:tweaked](https://www.curseforge.com/minecraft/mc-mods/cc-tweaked)
 
