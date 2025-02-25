@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local width, height = term.getSize()
 
 local function update(text)
@@ -23,29 +24,23 @@ local function bar(ratio)
     end
 end
 
-local function download(path)
+local function download(path, repo, destination)
     update("Downloading " .. path .. "...")
-
-    term.setBackgroundColor(colors.black)
-    term.setTextColor(colors.white)
-    term.setCursorPos(1, 13)
-    term.clearLine()
-    term.setCursorPos(1, 14)
-    term.clearLine()
-    term.setCursorPos(1, 15)
-    term.clearLine()
-    term.setCursorPos(1, 16)
-    term.clearLine()
-    term.setCursorPos(1, 17)
-    term.clearLine()
-    term.setCursorPos(1, 13)
-
-    print("Accessing https://raw.githubusercontent.com/WhyKickAmooCow/luamqtt-computercraft/main/" .. path)
-    local rawData = http.get("https://raw.githubusercontent.com/WhyKickAmooCow/luamqtt-computercraft/main/" .. path)
-    local data = rawData.readAll()
-    local file = fs.open(path, "w")
-    file.write(data)
-    file.close()
+    
+    local url = "https://raw.githubusercontent.com/" .. repo .. "/main/" .. path
+    print("Accessing: " .. repo .. "/" .. path)
+    
+    local rawData = http.get(url)
+    if rawData then
+        local data = rawData.readAll()
+        rawData.close()
+        
+        local file = fs.open(destination .. path, "w")
+        file.write(data)
+        file.close()
+    else
+        print("Failed to download " .. path)
+    end
 end
 
 function install()
@@ -57,56 +52,46 @@ function install()
     term.setCursorPos(math.floor(width / 2 - #str / 2), 2)
     write(str)
 
-    local total = 13
-
+    local total = 14
     update("Installing...")
     bar(0)
 
-    download("LICENSE")
+    local mainRepo = "WhyKickAmooCow/luamqtt-computercraft"
+    local additionalRepo = "Brakku/vidmots-lokaverk"
+    
+    download("LICENSE", mainRepo, "")
     bar(1 / total)
-    download("README.md")
+    download("README.md", mainRepo, "")
     bar(2 / total)
 
     update("Creating mqtt folder...")
     fs.makeDir("mqtt")
-    download("mqtt/bitwrap.lua")
-    bar(3 / total)
-    download("mqtt/cc_websocket.lua")
-    bar(4 / total)
-    download("mqtt/client.lua")
-    bar(5 / total)
-    download("mqtt/const.lua")
-    bar(6 / total)
-    download("mqtt/init.lua")
-    bar(7 / total)
-    download("mqtt/ioloop.lua")
-    bar(8 / total)
-    download("mqtt/luasocket.lua")
-    bar(9 / total)
-    download("mqtt/protocol.lua")
-    bar(10 / total)
-    download("mqtt/protocol4.lua")
-    bar(11 / total)
-    download("mqtt/protocol5.lua")
-    bar(12 / total)
-    download("mqtt/tools.lua")
-    bar(13 / total)
+    
+    local mqttFiles = {"bitwrap.lua", "cc_websocket.lua", "client.lua", "const.lua", "init.lua", "ioloop.lua", "luasocket.lua", "protocol.lua", "protocol4.lua", "protocol5.lua", "tools.lua"}
+    for i, file in ipairs(mqttFiles) do
+        download("mqtt/" .. file, mainRepo, "")
+        bar((2 + i) / total)
+    end
 
     update("Creating examples folder...")
     fs.makeDir("examples")
-    download("examples/cc_websocket.lua")
+    download("examples/cc_websocket.lua", mainRepo, "")
+    bar(13 / total)
 
+    -- Additional repository downloads
+    update("Downloading additional files...")
+    download("luaclient.lua", additionalRepo, "..")
+    bar(14 / total)
+    
     update("Installation finished!")
-
     sleep(1)
-
+    
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.white)
     term.clear()
 
     term.setCursorPos(1, 1)
     write("Finished installation!\nPress any key to close...")
-
     os.pullEventRaw()
 
     term.clear()
