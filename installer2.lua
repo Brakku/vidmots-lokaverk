@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local width, height = term.getSize()
 
 local function update(text)
