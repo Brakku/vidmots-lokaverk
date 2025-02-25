@@ -6,7 +6,7 @@ til að nota kerfið þá þarft þú að hafa Minecraft á tölfuni og modloder
 
 þegar þú hefur búið til world þá seturðu niður "advanced computer" og "advanced monitor" hliðiná. síðan ítirðu á tölfuna og þá kemur gluggi upp sem er terminal. þar skrifarðu:
 
-"wget https://github.com/Brakku/vidmots-lokaverk/blob/main/installer installer.lua" 
+"wget https://raw.github.com/Brakku/vidmots-lokaverk/blob/main/installer installer.lua" 
 
 og sínan keriri forritið með því að skrifa:
 
