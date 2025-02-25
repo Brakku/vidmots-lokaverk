@@ -27,7 +27,7 @@ local function download(path, repo, destination)
     update("Downloading " .. path .. "...")
     
     local url = "https://raw.githubusercontent.com/" .. repo .. "/main/" .. path
-    print("Accessing " .. url)
+    print("Accessing: " .. repo .. "/" .. path)
     
     local rawData = http.get(url)
     if rawData then
@@ -79,7 +79,7 @@ function install()
 
     -- Additional repository downloads
     update("Downloading additional files...")
-    download("luaclient.lua", additionalRepo, "")
+    download("/luaclient/luaclient.lua", additionalRepo, "")
     bar(14 / total)
     
     update("Installation finished!")
