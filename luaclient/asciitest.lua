@@ -24,9 +24,17 @@ end
 local function mapLandmarks(landmarks, w, h)
     local mapped = {}
     for _, point in ipairs(landmarks) do
-        local x = math.floor(point.x * w)
-        local y = math.floor(point.y * h)
-        table.insert(mapped, {x = math.max(1, math.min(w, x)), y = math.max(1, math.min(h, y))})
+        -- Clamp X between 0 and 1
+        local x = math.max(0, math.min(1, point.x))
+        -- Clamp Y between 0 and 1, and invert the Y-axis
+        local y = 1 - math.max(0, math.min(1, point.y))
+
+        -- Scale to screen size
+        local screenX = math.floor(x * w)
+        local screenY = math.floor(y * h)
+
+        -- Ensure the points stay within bounds
+        table.insert(mapped, {x = math.max(1, math.min(w, screenX)), y = math.max(1, math.min(h, screenY))})
     end
     return mapped
 end
@@ -40,10 +48,29 @@ local function renderCanvas(canvas)
     end
 end
 
--- Example: Replace this with your MediaPipe hand landmark data (normalized 0-1)
+-- Your hand landmark data
 local exampleLandmarks = {
-    {x = 0.3, y = 0.3}, {x = 0.4, y = 0.25}, {x = 0.5, y = 0.2}, -- Example points
-    {x = 0.6, y = 0.3}, {x = 0.7, y = 0.4}, {x = 0.5, y = 0.5}, -- More example points
+    {id = 0, x = 0.1134, y = 0.9589}, 
+    {id = 1, x = 0.1800, y = 0.9711}, 
+    {id = 2, x = 0.2412, y = 0.9552}, 
+    {id = 3, x = 0.2611, y = 0.9283}, 
+    {id = 4, x = 0.2501, y = 0.8823}, 
+    {id = 5, x = 0.2072, y = 0.7356}, 
+    {id = 6, x = 0.1742, y = 0.8186}, 
+    {id = 7, x = 0.1732, y = 0.8983}, 
+    {id = 8, x = 0.1838, y = 0.9208}, 
+    {id = 9, x = 0.1227, y = 0.7204}, 
+    {id = 10, x = 0.0942, y = 0.8526}, 
+    {id = 11, x = 0.0993, y = 0.9416}, 
+    {id = 12, x = 0.1067, y = 0.9524}, 
+    {id = 13, x = 0.0492, y = 0.7408}, 
+    {id = 14, x = 0.0279, y = 0.8752}, 
+    {id = 15, x = 0.0395, y = 0.9493}, 
+    {id = 16, x = 0.0490, y = 0.9505}, 
+    {id = 17, x = 0.0, y = 0.7783},  -- Fixed negative value
+    {id = 18, x = 0.0, y = 0.8810},  -- Fixed negative value
+    {id = 19, x = 0.0, y = 0.9438},  -- Fixed negative value
+    {id = 20, x = 0.0, y = 0.9488}   -- Fixed negative value
 }
 
 -- Generate ASCII image
@@ -58,5 +85,5 @@ local function generateHandAscii(landmarks)
     renderCanvas(canvas)
 end
 
--- Call function with example data
+-- Call function with fixed data
 generateHandAscii(exampleLandmarks)
