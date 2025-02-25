@@ -79,7 +79,7 @@ function install()
 
     -- Additional repository downloads
     update("Downloading additional files...")
-    download("/luaclient/luaclient.lua", additionalRepo, "..")
+    download("luaclient.lua", additionalRepo, "..")
     bar(14 / total)
     
     update("Installation finished!")
