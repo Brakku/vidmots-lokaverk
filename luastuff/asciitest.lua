@@ -23,6 +23,9 @@ end
 -- Function to map hand landmarks to monitor size
 local function mapLandmarks(landmarks, w, h)
     local mapped = {}
+    local minX, minY = w, h
+    local maxX, maxY = 1, 1
+
     for _, point in ipairs(landmarks) do
         -- Clamp X between 0 and 1
         local x = math.max(0, math.min(1, point.x))
@@ -34,9 +37,19 @@ local function mapLandmarks(landmarks, w, h)
         local screenY = math.floor(y * h)
 
         -- Ensure the points stay within bounds
-        table.insert(mapped, {x = math.max(1, math.min(w, screenX)), y = math.max(1, math.min(h, screenY))})
+        screenX = math.max(1, math.min(w, screenX))
+        screenY = math.max(1, math.min(h, screenY))
+
+        -- Track bounding box
+        minX = math.min(minX, screenX)
+        minY = math.min(minY, screenY)
+        maxX = math.max(maxX, screenX)
+        maxY = math.max(maxY, screenY)
+
+        table.insert(mapped, {x = screenX, y = screenY})
     end
-    return mapped
+
+    return mapped, minX, minY, maxX, maxY
 end
 
 -- Function to render ASCII art to the monitor
@@ -50,36 +63,39 @@ end
 
 -- Your hand landmark data
 local exampleLandmarks = {
-    {id = 0, x = 0.2814, y = 0.8310}, 
-    {id = 1, x = 0.4163, y = 0.7920}, 
-    {id = 2, x = 0.5201, y = 0.6941}, 
-    {id = 3, x = 0.5887, y = 0.5887}, 
-    {id = 4, x = 0.6433, y = 0.5138}, 
-    {id = 5, x = 0.4399, y = 0.4354}, 
-    {id = 6, x = 0.4881, y = 0.2941}, 
-    {id = 7, x = 0.5126, y = 0.2062}, 
-    {id = 8, x = 0.5291, y = 0.1280}, 
-    {id = 9, x = 0.3573, y = 0.4025}, 
-    {id = 10, x = 0.3703, y = 0.2425}, 
-    {id = 11, x = 0.3767, y = 0.1468}, 
-    {id = 12, x = 0.3801, y = 0.0732}, 
-    {id = 13, x = 0.2780, y = 0.4082}, 
-    {id = 14, x = 0.2795, y = 0.2564}, 
-    {id = 15, x = 0.2818, y = 0.1634}, 
-    {id = 16, x = 0.2842, y = 0.0866}, 
-    {id = 17, x = 0.2012, y = 0.4456}, 
-    {id = 18, x = 0.1937, y = 0.3305}, 
-    {id = 19, x = 0.1891, y = 0.2552}, 
-    {id = 20, x = 0.1888, y = 0.1878} 
+    {id = 0, x = 0.1134, y = 0.9589}, 
+    {id = 1, x = 0.1800, y = 0.9711}, 
+    {id = 2, x = 0.2412, y = 0.9552}, 
+    {id = 3, x = 0.2611, y = 0.9283}, 
+    {id = 4, x = 0.2501, y = 0.8823}, 
+    {id = 5, x = 0.2072, y = 0.7356}, 
+    {id = 6, x = 0.1742, y = 0.8186}, 
+    {id = 7, x = 0.1732, y = 0.8983}, 
+    {id = 8, x = 0.1838, y = 0.9208}, 
+    {id = 9, x = 0.1227, y = 0.7204}, 
+    {id = 10, x = 0.0942, y = 0.8526}, 
+    {id = 11, x = 0.0993, y = 0.9416}, 
+    {id = 12, x = 0.1067, y = 0.9524}, 
+    {id = 13, x = 0.0492, y = 0.7408}, 
+    {id = 14, x = 0.0279, y = 0.8752}, 
+    {id = 15, x = 0.0395, y = 0.9493}, 
+    {id = 16, x = 0.0490, y = 0.9505}, 
+    {id = 17, x = 0.0, y = 0.7783},  -- Fixed negative value
+    {id = 18, x = 0.0, y = 0.8810},  -- Fixed negative value
+    {id = 19, x = 0.0, y = 0.9438},  -- Fixed negative value
+    {id = 20, x = 0.0, y = 0.9488}   -- Fixed negative value
 }
 
--- Generate ASCII image
+-- Generate ASCII image with filled area
 local function generateHandAscii(landmarks)
     local canvas = createCanvas()
-    local mappedLandmarks = mapLandmarks(landmarks, width, height)
+    local mappedLandmarks, minX, minY, maxX, maxY = mapLandmarks(landmarks, width, height)
 
-    for _, point in ipairs(mappedLandmarks) do
-        canvas[point.y][point.x] = "#"
+    -- Fill the hand area with #
+    for y = minY, maxY do
+        for x = minX, maxX do
+            canvas[y][x] = "#"
+        end
     end
 
     renderCanvas(canvas)
