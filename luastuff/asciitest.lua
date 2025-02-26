@@ -14,7 +14,7 @@ local function createCanvas()
     for y = 1, height do
         canvas[y] = {}
         for x = 1, width do
-            canvas[y][x] = string.char(0x07) -- was . for the character
+            canvas[y][x] = "."
         end
     end
     return canvas
@@ -79,7 +79,7 @@ local function generateHandAscii(landmarks)
     local mappedLandmarks = mapLandmarks(landmarks, width, height)
 
     for _, point in ipairs(mappedLandmarks) do
-        canvas[point.y][point.x] = string.char(0x7F) -- was # for the character
+        canvas[point.y][point.x] = "#"
     end
 
     renderCanvas(canvas)
