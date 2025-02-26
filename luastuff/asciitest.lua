@@ -78,27 +78,27 @@ end
 
 -- Example hand landmarks (normalized coordinates)
 local exampleLandmarks = {
-    {id = 0, x = 0.5, y = 0.9},   -- WRIST
-    {id = 1, x = 0.4, y = 0.7},   -- THUMB_CMC
-    {id = 2, x = 0.35, y = 0.6},  -- THUMB_MCP
-    {id = 3, x = 0.3, y = 0.5},   -- THUMB_IP
-    {id = 4, x = 0.25, y = 0.4},  -- THUMB_TIP
-    {id = 5, x = 0.55, y = 0.7},  -- INDEX_FINGER_MCP
-    {id = 6, x = 0.57, y = 0.6},  -- INDEX_FINGER_PIP
-    {id = 7, x = 0.58, y = 0.5},  -- INDEX_FINGER_DIP
-    {id = 8, x = 0.59, y = 0.4},  -- INDEX_FINGER_TIP
-    {id = 9, x = 0.65, y = 0.7},  -- MIDDLE_FINGER_MCP
-    {id = 10, x = 0.67, y = 0.6}, -- MIDDLE_FINGER_PIP
-    {id = 11, x = 0.68, y = 0.5}, -- MIDDLE_FINGER_DIP
-    {id = 12, x = 0.69, y = 0.4}, -- MIDDLE_FINGER_TIP
-    {id = 13, x = 0.75, y = 0.7}, -- RING_FINGER_MCP
-    {id = 14, x = 0.77, y = 0.6}, -- RING_FINGER_PIP
-    {id = 15, x = 0.78, y = 0.5}, -- RING_FINGER_DIP
-    {id = 16, x = 0.79, y = 0.4}, -- RING_FINGER_TIP
-    {id = 17, x = 0.85, y = 0.7}, -- PINKY_MCP
-    {id = 18, x = 0.87, y = 0.6}, -- PINKY_PIP
-    {id = 19, x = 0.88, y = 0.5}, -- PINKY_DIP
-    {id = 20, x = 0.89, y = 0.4}  -- PINKY_TIP
+    {id = 0, x = 0.2814, y = 0.8310}, 
+    {id = 1, x = 0.4163, y = 0.7920}, 
+    {id = 2, x = 0.5201, y = 0.6941}, 
+    {id = 3, x = 0.5887, y = 0.5887}, 
+    {id = 4, x = 0.6433, y = 0.5138}, 
+    {id = 5, x = 0.4399, y = 0.4354}, 
+    {id = 6, x = 0.4881, y = 0.2941}, 
+    {id = 7, x = 0.5126, y = 0.2062}, 
+    {id = 8, x = 0.5291, y = 0.1280}, 
+    {id = 9, x = 0.3573, y = 0.4025}, 
+    {id = 10, x = 0.3703, y = 0.2425}, 
+    {id = 11, x = 0.3767, y = 0.1468}, 
+    {id = 12, x = 0.3801, y = 0.0732}, 
+    {id = 13, x = 0.2780, y = 0.4082}, 
+    {id = 14, x = 0.2795, y = 0.2564}, 
+    {id = 15, x = 0.2818, y = 0.1634}, 
+    {id = 16, x = 0.2842, y = 0.0866}, 
+    {id = 17, x = 0.2012, y = 0.4456}, 
+    {id = 18, x = 0.1937, y = 0.3305}, 
+    {id = 19, x = 0.1891, y = 0.2552}, 
+    {id = 20, x = 0.1888, y = 0.1878} 
 }
 
 -- Hand connection pairs (from Mediapipe hand landmarks)
