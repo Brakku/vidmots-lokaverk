@@ -76,7 +76,7 @@ local function renderCanvas(canvas)
     end
 end
 
--- Example hand landmarks (normalized coordinates)
+-- Example hand landmarks (normalized coordinates) see link for detales: https://camo.githubusercontent.com/cc87e384b553a0f19dcf8a36341b37a7081edc0b21b0d0ac364200b9e3bb98a1/68747470733a2f2f6d65646961706970652e6465762f696d616765732f6d6f62696c652f68616e645f6c616e646d61726b732e706e67
 local exampleLandmarks = {
     {id = 0, x = 0.2814, y = 0.8310}, 
     {id = 1, x = 0.4163, y = 0.7920}, 
