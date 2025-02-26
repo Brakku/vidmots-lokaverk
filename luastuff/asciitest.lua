@@ -9,8 +9,8 @@ mon.setTextScale(0.5)  -- Adjust for higher resolution
 local width, height = mon.getSize()
 
 -- Define characters
-local dotChar = string.char(0x07)   -- Background (.)
-local lineChar = string.char(0x7F)  -- Line (#)
+local dotChar = "."   -- Background (.)
+local lineChar = "#"  -- Line (#)
 
 -- Function to initialize a blank canvas
 local function createCanvas()
