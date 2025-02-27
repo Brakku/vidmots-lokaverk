@@ -3,7 +3,7 @@
 [luaMQTT](https://github.com/WhyKickAmooCow/luamqtt-computercraft) er notaður sem grunn fyrir lua client.
 
 ## Takmarkanir
-Það er ekki hægt að tengjast við brokerinn minn frá skólaneti því tengingin er blocked.
+Það er ekki hægt að tengjast við brokerinn minn frá external tengingu.
 
 ## Kröfur
 Til að nota kerfið þarftu að hafa:
