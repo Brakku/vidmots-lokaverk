@@ -18,7 +18,7 @@ local lineChar = "#" -- Line (#)
 -- MQTT Setup
 local keep_alive = 60
 local client = mqtt.client {
-    uri = "192.168.68.179:9001",
+    uri = "<IP with mosquitto broker>:9001",
     clean = true,
     keep_alive = keep_alive
 }

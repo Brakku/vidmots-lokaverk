@@ -4,8 +4,6 @@
 
 [luaMQTT](https://github.com/WhyKickAmooCow/luamqtt-computercraft) er notaður sem grunn fyrir lua client.
 
-## Takmarkanir
-Það er ekki hægt að tengjast við brokerinn minn frá external tengingu.
 
 ## Kröfur
 Til að nota kerfið þarftu að hafa:
@@ -40,8 +38,6 @@ Fyrir handa data-ið þá þarf að keira website-ið sem er í "webclient" sem 
 
 [luaMQTT](https://github.com/WhyKickAmooCow/luamqtt-computercraft) is used as the base for the lua client.
 
-## Limitations
-It is not possible to connect to my broker from an external connection.
 
 ## Requirements
 To use the system, you need:

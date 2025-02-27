@@ -5,7 +5,7 @@ const messagepresision = 3;
 let client;
 
 try {
-    client = mqtt.connect("ws://192.168.68.179:9001");
+    client = mqtt.connect("ws://<IP with mosquitto broker>:9001");
 } catch (e) {
     console.log(e);
 }
