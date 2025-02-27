@@ -20,7 +20,7 @@ client.on("connect", () => {
 function sendMessage(topic, message) {
 
     const payload = JSON.stringify(message)
-    console.log(payload);
+    //console.log(payload);
 
     if (topic === "" || message === "") {
         console.warn("Topic and message cannot be empty!");
@@ -138,7 +138,6 @@ async function predictWebcam() {
     webcamElement.style.width = videoWidth;
 
     if (results.landmarks) {
-        //console.log(results.landmarks);
 
         for (const landmarks of results.landmarks) {
             drawingUtils.drawConnectors(landmarks, GestureRecognizer.HAND_CONNECTIONS, {
