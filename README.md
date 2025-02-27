@@ -16,3 +16,5 @@ og sínan keriri forritið með því að skrifa:
 
 og það mun ná í allt sem þarf
 
+síðan keira luaclient.lua til að byrja forritið
+
