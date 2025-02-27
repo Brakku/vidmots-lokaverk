@@ -28,7 +28,7 @@ function sendMessage(topic, message) {
     }
 
     client.publish(topic, payload);
-    console.log(`Message published to '${topic}': ${message}`);
+    //console.log(`Message published to '${topic}': ${message}`);
 }
 
 
