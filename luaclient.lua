@@ -7,7 +7,7 @@ monitor.setTextScale(0.5)
 
 -- create mqtt client
 local client = mqtt.client {
-    uri = "192.168.68.179:9001",
+    uri = "192.168.68.179:1883",
     clean = true,
     keep_alive = keep_alive
 }

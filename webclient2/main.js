@@ -67,7 +67,7 @@ function processLandmarks(landmarksArray, decimals = 4) {
         landmarkSet.map((point, index) => ({
             id: index,  // Assign an ID
             x: roundTo(point.x, decimals),
-            z: roundTo(point.z, decimals) // Remove 'y', keep 'x' and 'z'
+            y: roundTo(point.y, decimals) // Remove 'y', keep 'x' and 'z'
         }))
     );
 }
