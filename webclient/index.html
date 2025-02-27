@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MQTT Message Sender</title>
-</head>
-<body>
-    <h2>Send MQTT Message</h2>
+  <meta charset="UTF-8">
+  <title>Recognize hand gestures using the MediaPipe HandGestureRecognizer task</title>
+  <link rel="stylesheet" href="style.css">
+  
 
-    <label for="topicInput">Topic:</label>
-    <input type="text" id="topicInput" placeholder="Enter topic" value="test">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
 
-    <br><br>
-
-    <label for="messageInput">Message:</label>
-    <input type="text" id="messageInput" placeholder="Enter message">
-
-    <br><br>
-
-    <button id="sendButton">Send</button>
-
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@latest"></script>    
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-    <script src="main.js"></script>
+        
+    <script src="main.js" type="module"></script>
+
+
+</head>
+
+<body style="margin-top: 0px;">
+
+    <p id="hiddentext" style="display: none;">it takes some time to activate gesture recognition, plese wait</p>
+
+  
+    <div id="liveView" class="videoView">
+        <button id="webcamButton" class="mdc-button mdc-button--raised">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">ENABLE WEBCAM</span>
+        </button>
+        <div style="position: relative;">
+        <video id="webcam" autoplay playsinline></video>
+        <canvas class="output_canvas" id="output_canvas" width="1280" height="720" style="position: absolute; left: 0px; top: 0px;"></canvas>
+        <p id='gesture_output' class="output">
+        </div>
+    </div>
+
 </body>
+
 </html>
