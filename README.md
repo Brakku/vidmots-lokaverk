@@ -8,13 +8,17 @@ til að nota kerfið þá þarft þú að hafa Minecraft á tölfuni og modloder
 
 þegar þú hefur búið til world þá seturðu niður "advanced computer" og "advanced monitor" hliðiná. síðan ítirðu á tölfuna og þá kemur gluggi upp sem er terminal. þar skrifarðu:
 
-"wget https://raw.githubusercontent.com/Brakku/vidmots-lokaverk/refs/heads/main/installer.lua installer.lua" 
+# "wget https://raw.githubusercontent.com/Brakku/vidmots-lokaverk/refs/heads/main/installer.lua installer.lua" 
 
 og sínan keriri forritið með því að skrifa:
 
-"installer" 
+# "installer" 
 
 og það mun ná í allt sem þarf
 
-síðan keira luaclient.lua til að byrja forritið
+síðan keira 
+
+# "luaclient.lua"
+
+til að byrja forritið
 
