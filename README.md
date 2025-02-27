@@ -13,16 +13,16 @@ Til að nota kerfið þarftu að hafa:
 
 ## Uppsetning
 1. Búðu til nýtt world í Minecraft.
-2. Settu niður "advanced computer" og "advanced monitor" hliðiná.
+2. Settu niður "advanced computer" og "advanced monitor" hliðiná (númer af monitors mun hækka gæðina).
 3. Opnaðu tölvuna og skrifaðu eftirfarandi í terminalinn:
-    ```sh
-    wget https://raw.githubusercontent.com/Brakku/vidmots-lokaverk/refs/heads/main/installer.lua installer.lua
-    ```
+```sh
+wget https://raw.githubusercontent.com/Brakku/vidmots-lokaverk/refs/heads/main/installer.lua installer.lua
+```
 4. Keyrðu installerinn með því að skrifa:
-    ```sh
-    installer
-    ```
-    Þetta mun ná í allt sem þarf.
+```sh
+installer
+```
+Þetta mun ná í allt sem þarf.
 
 ## Keyrsla
 Til að byrja forritið, skrifaðu:
