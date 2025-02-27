@@ -1,18 +1,29 @@
--- Get the monitor peripheral
+local mqtt = require("mqtt")
+local json = textutils.unserializeJSON  -- CC:Tweaked's JSON parser
+
+-- Monitor setup
 local mon = peripheral.find("monitor")
 if not mon then
     print("No monitor found!")
     return
 end
 
-mon.setTextScale(0.5)  -- Adjust text size for higher resolution
+mon.setTextScale(0.5)  -- Adjust text size
 local width, height = mon.getSize()
 
 -- Define characters
 local dotChar = string.char(0x07)   -- Background (.)
 local lineChar = string.char(0x7F)  -- Line (#)
 
--- Function to initialize a blank canvas
+-- MQTT Setup
+local keep_alive = 60
+local client = mqtt.client {
+    uri = "192.168.68.179:9001",
+    clean = true,
+    keep_alive = keep_alive
+}
+
+-- Initialize blank canvas
 local function createCanvas()
     local canvas = {}
     for y = 1, height do
@@ -24,7 +35,7 @@ local function createCanvas()
     return canvas
 end
 
--- Bresenham's line algorithm for drawing lines
+-- Bresenham's line algorithm for drawing connections
 local function drawLine(canvas, x1, y1, x2, y2)
     local dx = math.abs(x2 - x1)
     local dy = math.abs(y2 - y1)
@@ -49,7 +60,7 @@ local function drawLine(canvas, x1, y1, x2, y2)
     end
 end
 
--- Function to map hand landmarks to monitor size
+-- Function to map landmarks to monitor size
 local function mapLandmarks(landmarks, w, h)
     local mapped = {}
 
@@ -84,31 +95,6 @@ local function renderCanvas(canvas)
     end
 end
 
--- Example hand landmarks (normalized coordinates)
-local exampleLandmarks = {
-    {id = 0, x = 0.2813771963119507, y = 0.831003725528717}, 
-    {id = 1, x = 0.41627541184425354, y = 0.791965126991272}, 
-    {id = 2, x = 0.520128607749939, y = 0.6941092610359192}, 
-    {id = 3, x = 0.5887344479560852, y = 0.5886747241020203}, 
-    {id = 4, x = 0.6433324813842773, y = 0.5138118863105774}, 
-    {id = 5, x = 0.4399354159832001, y = 0.43541327118873596}, 
-    {id = 6, x = 0.4881315231323242, y = 0.29414957761764526}, 
-    {id = 7, x = 0.5126233100891113, y = 0.20615211129188538}, 
-    {id = 8, x = 0.529113233089447, y = 0.12800383567810059}, 
-    {id = 9, x = 0.35728856921195984, y = 0.4025281071662903}, 
-    {id = 10, x = 0.3703385889530182, y = 0.24250686168670654}, 
-    {id = 11, x = 0.3766821622848511, y = 0.14680373668670654}, 
-    {id = 12, x = 0.38006913661956787, y = 0.07320061326026917}, 
-    {id = 13, x = 0.2779727578163147, y = 0.4081544876098633}, 
-    {id = 14, x = 0.2794930338859558, y = 0.25644195079803467}, 
-    {id = 15, x = 0.2817540764808655, y = 0.16342702507972717}, 
-    {id = 16, x = 0.28422459959983826, y = 0.08662369847297668}, 
-    {id = 17, x = 0.20123419165611267, y = 0.44557973742485046}, 
-    {id = 18, x = 0.19369491934776306, y = 0.33054035902023315}, 
-    {id = 19, x = 0.18912269175052643, y = 0.25524789094924927}, 
-    {id = 20, x = 0.1887734979391098, y = 0.18784886598587036} 
-}
-
 -- Hand connection pairs (from Mediapipe hand landmarks)
 local connections = {
     {0, 1}, {1, 2}, {2, 3}, {3, 4},  -- Thumb
@@ -133,4 +119,66 @@ local function generateHandAscii(landmarks)
     renderCanvas(canvas)
 end
 
-generateHandAscii(exampleLandmarks)
+-- MQTT Connection Handling
+client:on {
+    connect = function(connack)
+        if connack.rc ~= 0 then
+            print("Connection failed:", connack:reason_string(), connack)
+            return
+        end
+        print("Connected to MQTT broker")
+
+        -- Subscribe to the landmarks topic
+        assert(client:subscribe { topic = "landmarks", qos = 1, callback = function(suback)
+            print("Subscribed to landmarks topic")
+        end })
+    end,
+
+    message = function(msg)
+        assert(client:acknowledge(msg))  -- Acknowledge message
+
+        -- Try to parse JSON
+        local success, landmarks = pcall(json, msg.payload)
+
+        if not success or type(landmarks) ~= "table" then
+            print("Invalid or non-JSON message received:", msg.payload)
+            return  -- Ignore non-JSON messages
+        end
+
+        -- Ensure landmarks contain valid ID, X, and Z
+        local validLandmarks = {}
+        for _, landmarkSet in ipairs(landmarks) do
+            for _, landmark in ipairs(landmarkSet) do
+                if type(landmark) == "table" and landmark.id and landmark.x then
+                    table.insert(validLandmarks, landmark)
+                end
+            end
+        end
+
+        -- Render the hand on the monitor
+        generateHandAscii(validLandmarks)
+    end,
+
+    error = function(err)
+        print("MQTT client error:", err)
+    end,
+
+    close = function()
+        print("MQTT connection closed")
+    end
+}
+
+-- Run MQTT client loop
+parallel.waitForAny(
+    function()
+        print("Running MQTT client")
+        mqtt.run_sync(client)
+        print("Client stopped")
+    end,
+    function()
+        while true do
+            os.sleep(keep_alive)
+            client:send_pingreq()
+        end
+    end
+)
