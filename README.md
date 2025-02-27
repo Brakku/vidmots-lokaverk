@@ -64,7 +64,10 @@ To start the program, type:
 luaclient.lua
 ```
 
-For the hand data, you need to run the website in the "webclient" as a live server and have a camera.
+
+## For the hand data, you need to run the website in the "webclient" as a live server and have a camera and a mosquitto broker.
+
+
 
 https://github.com/user-attachments/assets/c8147b7f-9f41-44df-b776-9813e5b85b4e
 
