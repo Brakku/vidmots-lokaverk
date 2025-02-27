@@ -2,8 +2,6 @@ import { GestureRecognizer, FilesetResolver, DrawingUtils } from "https://cdn.js
 
 const messagepresision = 3;
 
-
-
 let client;
 
 try {
@@ -18,20 +16,13 @@ client.on("connect", () => {
 
 // Function to send a message to a specified topic
 function sendMessage(topic, message) {
-
-    const payload = JSON.stringify(message)
-    //console.log(payload);
-
+    const payload = JSON.stringify(message);
     if (topic === "" || message === "") {
         console.warn("Topic and message cannot be empty!");
         return;
     }
-
     client.publish(topic, payload);
-    //console.log(`Message published to '${topic}': ${message}`);
 }
-
-
 
 let gestureRecognizer;
 let runningMode = "VIDEO";
@@ -40,6 +31,7 @@ let webcamRunning = false;
 const videoHeight = "360px";
 const videoWidth = "480px";
 
+// Function to create the gesture recognizer
 const createGestureRecognizer = async () => {
     const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm");
     gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
@@ -52,16 +44,17 @@ const createGestureRecognizer = async () => {
 };
 createGestureRecognizer();
 
-
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
 const gestureOutput = document.getElementById("gesture_output");
 
+// Function to round a value to a specified number of decimals
 function roundTo(value, decimals) {
     return Number(value.toFixed(decimals));
 }
 
+// Function to process landmarks and round their coordinates
 function processLandmarks(landmarksArray, decimals = 4) {
     return landmarksArray.map(landmarkSet => 
         landmarkSet.map((point, index) => ({
@@ -72,21 +65,19 @@ function processLandmarks(landmarksArray, decimals = 4) {
     );
 }
 
-// Check if webcam access is supported.
+// Check if webcam access is supported
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
-// If webcam supported, add event listener to button for when user
-// wants to activate it.
 
 if (hasGetUserMedia()) {
     enableWebcamButton = document.getElementById("webcamButton");
     enableWebcamButton.addEventListener("click", enableCam);
-}
-else {
+} else {
     console.warn("getUserMedia() is not supported by your browser");
 }
-// Enable the live webcam view and start detection.
+
+// Enable the live webcam view and start detection
 function enableCam(event) {
     document.getElementById("hiddentext").style.display = "block";
     if (!gestureRecognizer) {
@@ -96,29 +87,25 @@ function enableCam(event) {
     if (webcamRunning === true) {
         webcamRunning = false;
         enableWebcamButton.innerText = "ENABLE PREDICTIONS";
-    }
-    else {
+    } else {
         webcamRunning = true;
         enableWebcamButton.innerText = "DISABLE PREDICTIONS";
     }
-    // getUsermedia parameters.
     const constraints = {
         video: true
     };
-    // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
         video.srcObject = stream;
         video.addEventListener("loadeddata", predictWebcam);
     });
 }
 
-
 let lastVideoTime = -1;
 let results = undefined;
+
+// Function to predict gestures from the webcam feed
 async function predictWebcam() {
     const webcamElement = document.getElementById("webcam");
-    // Now let's start detecting the stream.
-
     if (runningMode === "IMAGE") {
         runningMode = "VIDEO";
         await gestureRecognizer.setOptions({ runningMode: "VIDEO" });
@@ -138,7 +125,6 @@ async function predictWebcam() {
     webcamElement.style.width = videoWidth;
 
     if (results.landmarks) {
-
         for (const landmarks of results.landmarks) {
             drawingUtils.drawConnectors(landmarks, GestureRecognizer.HAND_CONNECTIONS, {
                 color: "#00FF00",
@@ -160,14 +146,11 @@ async function predictWebcam() {
         const categoryScore = parseFloat(results.gestures[0][0].score * 100).toFixed(2);
         const handedness = results.handednesses[0][0].displayName;
 
-        //console.log();
         gestureOutput.innerText = `GestureRecognizer: ${categoryName}\n Confidence: ${categoryScore} %\n Handedness: ${handedness}`;
-        sendMessage("landmarks", processLandmarks(results.landmarks,messagepresision));
-    }
-    else {
+        sendMessage("landmarks", processLandmarks(results.landmarks, messagepresision));
+    } else {
         gestureOutput.style.display = "none";
     }
-    // Call this function again to keep predicting when the browser is ready.
     if (webcamRunning === true) {
         window.requestAnimationFrame(predictWebcam);
     }

@@ -1,6 +1,7 @@
 ---@diagnostic disable: undefined-field
 local width, height = term.getSize()
 
+-- Function to update the status text
 local function update(text)
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.white)
@@ -10,6 +11,7 @@ local function update(text)
     write(text)
 end
 
+-- Function to display a progress bar
 local function bar(ratio)
     term.setBackgroundColor(colors.gray)
     term.setTextColor(colors.lime)
@@ -24,6 +26,7 @@ local function bar(ratio)
     end
 end
 
+-- Function to download a file from a GitHub repository
 local function download(path, repo, destination)
     update("Downloading " .. path .. "...")
     
@@ -42,6 +45,7 @@ local function download(path, repo, destination)
     end
 end
 
+-- Main installation function
 function install()
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.yellow)
