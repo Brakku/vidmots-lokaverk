@@ -19,12 +19,15 @@ client.on("connect", () => {
 // Function to send a message to a specified topic
 function sendMessage(topic, message) {
 
+    const payload = JSON.stringify(message)
+    console.log(payload);
+
     if (topic === "" || message === "") {
         console.warn("Topic and message cannot be empty!");
         return;
     }
 
-    client.publish(topic, message);
+    client.publish(topic, payload);
     console.log(`Message published to '${topic}': ${message}`);
 }
 
@@ -59,12 +62,12 @@ function roundTo(value, decimals) {
     return Number(value.toFixed(decimals));
 }
 
-function processLandmarks(landmarksArray, decimals = 3) {
+function processLandmarks(landmarksArray, decimals = 4) {
     return landmarksArray.map(landmarkSet => 
-        landmarkSet.map(point => ({
+        landmarkSet.map((point, index) => ({
+            id: index,  // Assign an ID
             x: roundTo(point.x, decimals),
-            y: roundTo(point.y, decimals),
-            z: roundTo(point.z, decimals),
+            z: roundTo(point.z, decimals) // Remove 'y', keep 'x' and 'z'
         }))
     );
 }
