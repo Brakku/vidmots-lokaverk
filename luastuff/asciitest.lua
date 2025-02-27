@@ -109,11 +109,17 @@ local function generateHandAscii(landmarks)
     local canvas = createCanvas()
     local mappedLandmarks = mapLandmarks(landmarks, width, height)
 
-    -- Draw connections
+    -- Draw connections safely
     for _, conn in ipairs(connections) do
         local p1 = mappedLandmarks[conn[1] + 1]  -- Lua indices start at 1
         local p2 = mappedLandmarks[conn[2] + 1]
-        drawLine(canvas, p1.x, p1.y, p2.x, p2.y)
+
+        -- Ensure both points exist before drawing
+        if p1 and p2 then
+            drawLine(canvas, p1.x, p1.y, p2.x, p2.y)
+        else
+            print("Warning: Missing landmark for connection:", conn[1], conn[2])
+        end
     end
 
     renderCanvas(canvas)
