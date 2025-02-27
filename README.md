@@ -10,6 +10,7 @@ Til að nota kerfið þarftu að hafa:
 - Minecraft á tölvunni
 - Modloader ([CurseForge appið](https://www.curseforge.com/download/app) er mælt með)
 - [CC:Tweaked](https://www.curseforge.com/minecraft/mc-mods/cc-tweaked)
+- að hafa mosquitto broker, ég hafði á raspberry pi
 
 ## Uppsetning
 1. Búðu til nýtt world í Minecraft.
@@ -44,6 +45,7 @@ To use the system, you need:
 - Minecraft on your computer
 - Modloader ([CurseForge app](https://www.curseforge.com/download/app) is recommended)
 - [CC:Tweaked](https://www.curseforge.com/minecraft/mc-mods/cc-tweaked)
+- having mosquitto broker, i had on raspberry pi on the local network, not tested on having a local broker
 
 ## Setup
 1. Create a new world in Minecraft.
