@@ -1,22 +1,10 @@
-@use "@material";
+
 body {
   font-family: roboto;
   margin: 2em;
   color: #3d3d3d;
   --mdc-theme-primary: #007f8b;
   --mdc-theme-on-primary: #f1f3f4;
-}
-
-#modelContainer {
-  width: 500px;  /* Set the desired width */
-  height: 500px; /* Set the desired height */
-  border: 2px solid black;
-  margin: 20px auto; /* Center the box */
-  position: relative;
-  overflow: hidden; /* Prevent overflow */
-  display:inline;
-  position: absolute;
-  right: 10px;
 }
 
 canvas {
@@ -56,17 +44,7 @@ section {
   display: none;
 }
 
-.invisible {
-  opacity: 0.2;
-}
 
-.detectOnClick {
-  position: relative;
-  float: left;
-  width: 10em;
-  margin: 2% 1%;
-  cursor: pointer;
-}
 .videoView {
   position: absolute;
   float: left;

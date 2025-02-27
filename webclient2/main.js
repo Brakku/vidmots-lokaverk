@@ -1,6 +1,35 @@
 import { GestureRecognizer, FilesetResolver, DrawingUtils } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 
-const demosSection = document.getElementById("demos");
+const messagepresision = 3;
+
+
+
+let client;
+
+try {
+    client = mqtt.connect("ws://192.168.68.179:9001");
+} catch (e) {
+    console.log(e);
+}
+
+client.on("connect", () => {
+    console.log("Connected to MQTT broker!");
+});
+
+// Function to send a message to a specified topic
+function sendMessage(topic, message) {
+
+    if (topic === "" || message === "") {
+        console.warn("Topic and message cannot be empty!");
+        return;
+    }
+
+    client.publish(topic, message);
+    console.log(`Message published to '${topic}': ${message}`);
+}
+
+
+
 let gestureRecognizer;
 let runningMode = "VIDEO";
 let enableWebcamButton;
@@ -17,7 +46,6 @@ const createGestureRecognizer = async () => {
         },
         runningMode: runningMode
     });
-    demosSection.classList.remove("invisible");
 };
 createGestureRecognizer();
 
@@ -26,6 +54,20 @@ const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
 const gestureOutput = document.getElementById("gesture_output");
+
+function roundTo(value, decimals) {
+    return Number(value.toFixed(decimals));
+}
+
+function processLandmarks(landmarksArray, decimals = 3) {
+    return landmarksArray.map(landmarkSet => 
+        landmarkSet.map(point => ({
+            x: roundTo(point.x, decimals),
+            y: roundTo(point.y, decimals),
+            z: roundTo(point.z, decimals),
+        }))
+    );
+}
 
 // Check if webcam access is supported.
 function hasGetUserMedia() {
@@ -93,7 +135,6 @@ async function predictWebcam() {
     webcamElement.style.width = videoWidth;
 
     if (results.landmarks) {
-        
         //console.log(results.landmarks);
 
         for (const landmarks of results.landmarks) {
@@ -118,7 +159,8 @@ async function predictWebcam() {
         const handedness = results.handednesses[0][0].displayName;
 
         //console.log();
-        gestureOutput.innerText = `GestureRecognizer: ${categoryName}\n Confidence: ${categoryScore} %\n Handedness: ${handedness} %\n thumb-pinky distance: ${distance} mm`;
+        gestureOutput.innerText = `GestureRecognizer: ${categoryName}\n Confidence: ${categoryScore} %\n Handedness: ${handedness}`;
+        sendMessage("landmarks", processLandmarks(results.landmarks,messagepresision));
     }
     else {
         gestureOutput.style.display = "none";
