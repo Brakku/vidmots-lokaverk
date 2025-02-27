@@ -1,5 +1,5 @@
 local mqtt = require("mqtt")
-local json = textutils.unserializeJSON  -- Use CC:Tweaked's built-in JSON parser
+local json = textutils.unserializeJSON  -- CC:Tweaked's JSON parser
 
 local keep_alive = 60
 local monitor = peripheral.find("monitor")
@@ -36,13 +36,13 @@ client:on {
         assert(client:acknowledge(msg))  -- Acknowledge message
 
         -- Try to parse the incoming JSON payload
-        local landmarks = json(msg.payload)
-        
-        if not landmarks then
-            print("Failed to parse JSON:", msg.payload)
-            return
+        local success, landmarks = pcall(json, msg.payload)
+
+        if not success or type(landmarks) ~= "table" then
+            print("Received non-JSON message or invalid data:", msg.payload)
+            return  -- Ignore invalid messages
         end
-        
+
         -- Clear the monitor and display the new data
         if monitor then
             monitor.clear()
@@ -52,10 +52,12 @@ client:on {
             local line = 2
             for _, landmarkSet in ipairs(landmarks) do
                 for _, landmark in ipairs(landmarkSet) do
-                    monitor.setCursorPos(1, line)
-                    monitor.write(string.format("ID: %d X: %.3f Z: %.3f", landmark.id, landmark.x, landmark.z))
-                    line = line + 1
-                    if line > 18 then break end  -- Prevents overflowing the screen
+                    if type(landmark) == "table" and landmark.id and landmark.x and landmark.z then
+                        monitor.setCursorPos(1, line)
+                        monitor.write(string.format("ID: %d X: %.3f Z: %.3f", landmark.id, landmark.x, landmark.z))
+                        line = line + 1
+                        if line > 18 then break end  -- Prevents overflowing the screen
+                    end
                 end
             end
         end
