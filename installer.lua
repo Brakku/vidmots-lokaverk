@@ -28,7 +28,6 @@ local function download(path, repo, destination)
     update("Downloading " .. path .. "...")
     
     local url = "https://raw.githubusercontent.com/" .. repo .. "/main/" .. path
-    print("Accessing: " .. repo .. "/" .. path)
     
     local rawData = http.get(url)
     if rawData then
