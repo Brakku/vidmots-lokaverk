@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-field
 local width, height = term.getSize()
 
 -- Function to update the status text
