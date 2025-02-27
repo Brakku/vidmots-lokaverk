@@ -22,3 +22,7 @@ til að byrja forritið
 
 
 fyrir handa data-ið þá þarf að keira website-ið sem er í "webclient" sem live server og það þarf að hafa myndavél
+
+
+https://github.com/user-attachments/assets/c8147b7f-9f41-44df-b776-9813e5b85b4e
+
