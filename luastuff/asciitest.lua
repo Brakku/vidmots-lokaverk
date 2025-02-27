@@ -52,19 +52,26 @@ end
 -- Function to map hand landmarks to monitor size
 local function mapLandmarks(landmarks, w, h)
     local mapped = {}
+
     for _, point in ipairs(landmarks) do
-        local x = math.max(0, math.min(1, point.x))
-        local y = math.max(0, math.min(1, point.y))  -- DO NOT invert Y yet
+        -- Ensure the point has valid x and y values
+        if type(point) == "table" and type(point.x) == "number" and type(point.y) == "number" then
+            local x = math.max(0, math.min(1, point.x))
+            local y = math.max(0, math.min(1, point.y))
 
-        -- Mirror X and Flip Y
-        local screenX = math.floor((1 - x) * w)  -- Mirror X
-        local screenY = math.floor(y * h)        -- Flip Y
+            -- Mirror X and Flip Y
+            local screenX = math.floor((1 - x) * w)  -- Mirror X
+            local screenY = math.floor(y * h)        -- Flip Y
 
-        screenX = math.max(1, math.min(w, screenX))
-        screenY = math.max(1, math.min(h, screenY))
+            screenX = math.max(1, math.min(w, screenX))
+            screenY = math.max(1, math.min(h, screenY))
 
-        mapped[#mapped + 1] = {x = screenX, y = screenY}
+            mapped[#mapped + 1] = {x = screenX, y = screenY}
+        else
+            print("Invalid landmark received:", textutils.serialize(point))
+        end
     end
+
     return mapped
 end
 
