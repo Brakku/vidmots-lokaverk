@@ -2,7 +2,48 @@
 
 # english translation bellow
 
-[luaMQTT](https://github.com/WhyKickAmooCow/luamqtt-computercraft) er notaður sem grunn fyrir lua client.
+# Lokaverkefni í Viðmótsforritun – Breki Hlynsson 2025  
+Tækniskólinn – Upplýsingatæknibraut  
+
+## Verkefnalýsing  
+Verkefnið snýst um að búa til kerfi sem sýnir handarstöðu í Minecraft með því að nota vefmyndavél og hreyfiviðurkenni. Kerfið notar MQTT til að senda handarstöðu frá vefmyndavélinni til Minecraft tölvunnar. Handarstaðan er síðan sýnd á skjánum í Minecraft með ASCII list.  
+
+Kerfið er skipt í tvo hluta:  
+1. **Lua Client** – Sýnir handarstöðuna í Minecraft með ASCII list.  
+2. **Vefclient** – Les handarstöðuna með vefmyndavélinni og sendir hana til Lua clients með MQTT.  
+
+## Hugmyndin að verkefninu  
+Ég fékk hugmyndina frá mismunandi sýningum sem ég hef séð á netinu. Ég hafði þegar búið til kóðann fyrir vefsíðuna í öðru verkefni, þannig að ég var þegar með *landmark data* tilbúin til notkunar. Ég vissi af *ComputerCraft* en hafði ekki unnið mikið með það áður, svo ég sá þetta sem tækifæri til að prófa stærra verkefni í því umhverfi.  
+
+## Helstu áskoranir  
+Aðalvandamálið var að koma gögnum til tölvunnar. Ég vissi að hægt væri að vinna með HTTP til að sækja gögn, en ég var ekki viss um hvort það væri nógu hratt. Ég fann síðan út að ég gæti notað MQTT til að senda gögn á milli tölvunnar og vefsíðunnar. Ég fann *luaMQTT*, sem er Lua client fyrir MQTT, og notaði það til að koma gögnum á milli.  
+
+## Notuð tól og söfn  
+- **ComputerCraft** (Minecraft mod fyrir Lua forritun)  
+- **luaMQTT** (MQTT client fyrir Lua)  
+- **Vefmyndavél og hreyfiviðurkenni** (t.d. Mediapipe fyrir handarstöðu)  
+- **HTML/CSS/JavaScript** (vefclient til að lesa handarstöðu)  
+- **MQTT Broker** (t.d. Mosquitto fyrir miðlun gagna)  
+
+## Skref í þróun  
+1. Setja upp vefclient til að lesa handarstöðu með vefmyndavél.  
+2. Tengja vefclient við MQTT til að senda gögn.  
+3. Búa til Lua client í ComputerCraft til að taka við gögnum og birta þau í Minecraft.  
+4. Prófanir og fínstilling á hraða gagnaflutnings.  
+
+## Útkoma og næstu skref  
+Verkefnið tókst vel og tókst mér að fá handarstöðu til að birtast í Minecraft í rauntíma með ASCII list. Ef ég myndi halda áfram með verkefnið myndi ég vilja:  
+- Betrumbæta myndbirtingu í Minecraft, t.d. með *pixels* mögulega notandi [pixelbox](https://github.com/9551-dev/pixelbox_lite).  
+- Bæta við fleiri höndunum og hreyfiviðurkenni fyrir fjölbreyttari samskipti.  
+- Gera notendaviðmótið meira straumlínulagað.  
+
+## Skjöl og heimildir  
+- [GitHub geymsla með kóða](#) *(Bættu við slóð þegar tiltæk)*  
+- Myndir og myndband af frumgerð *(Bættu við slóð þegar tiltæk)*  
+- LuaMQTT: [https://github.com/geekscape/lua-mqtt](https://github.com/geekscape/lua-mqtt)  
+- ComputerCraft: [https://tweaked.cc/](https://tweaked.cc/) 
+
+
 
 ## Kröfur
 Til að nota kerfið þarftu að hafa:
@@ -51,11 +92,61 @@ Fyrir handa data-ið þá þarf að keira website-ið sem er í "webclient" sem 
 4. **Spá**: `predictWebcam` fallið vinnur úr vefmyndavélarstraumnum til að viðurkenna hreyfingar og teikna kennileiti á strigann.
 5. **Sending gagna**: Skjalið sendir unnin kennileiti til MQTT broker með `sendMessage` fallinu.
 
+
+
+
+
+
+
+
 # english translation
 
 # LuaMQTT Display client for Minecraft
 
-[luaMQTT](https://github.com/WhyKickAmooCow/luamqtt-computercraft) is used as the base for the lua client.
+
+# Final Project in UI Programming – Breki Hlynsson 2025  
+Tækniskólinn – Information Technology Program  
+
+## Project Description  
+The project involves creating a system that displays hand positions in Minecraft using a webcam and motion recognition. The system uses MQTT to transmit hand position data from the webcam to the Minecraft computer. The hand position is then displayed on the Minecraft screen using ASCII art.  
+
+The system consists of two parts:  
+1. **Lua Client** – Displays the hand position in Minecraft using ASCII art.  
+2. **Web Client** – Reads the hand position using the webcam and sends it to the Lua client via MQTT.  
+
+## Project Idea  
+I got the idea from various demonstrations I’ve seen online. I had already written the code for the web client in another project, so I already had landmark data ready to be used for something. I was aware of *ComputerCraft* but hadn’t worked with it much before, so I saw this as an opportunity to try a larger project using it.  
+
+## Main Challenges  
+The biggest challenge was transferring the data to the computer. I knew that HTTP could be used to fetch data, but I wasn’t sure if it would be fast enough. Eventually, I discovered that I could use MQTT to transmit data between the computer and the web client. I found *luaMQTT*, a Lua client for MQTT, and used it to send data between the two.  
+
+## Tools and Libraries Used  
+- **ComputerCraft** (Minecraft mod for Lua programming)  
+- **luaMQTT** (MQTT client for Lua)  
+- **Webcam and motion recognition** (e.g., Mediapipe for hand tracking)  
+- **HTML/CSS/JavaScript** (web client for reading hand position)  
+- **MQTT Broker** (e.g., Mosquitto for data transmission)  
+
+## Development Steps  
+1. Set up the web client to detect hand position using the webcam.  
+2. Connect the web client to MQTT for data transmission.  
+3. Develop the Lua client in ComputerCraft to receive data and display it in Minecraft.  
+4. Test and optimize data transfer speed.  
+
+## Outcome and Next Steps  
+The project was successful, and I was able to display hand positions in Minecraft in real-time using ASCII art. If I were to continue developing the project, I would:  
+- Improve the image rendering in Minecraft, possibly using [pixelbox](https://github.com/9551-dev/pixelbox_lite).  
+- Add support for multiple hands and more advanced motion recognition.   
+
+## Documentation and References  
+- [GitHub repository with source code](#) *(Add link when available)*  
+- Images and video demonstration *(Add link when available)*  
+- LuaMQTT: [https://github.com/geekscape/lua-mqtt](https://github.com/geekscape/lua-mqtt)  
+- ComputerCraft: [https://tweaked.cc/](https://tweaked.cc/)  
+
+
+
+
 
 ## Requirements
 To use the system, you need:
@@ -104,3 +195,4 @@ luaclient.lua
 4. **Prediction**: The `predictWebcam` function processes the webcam feed to recognize gestures and draw landmarks on the canvas.
 5. **Sending Data**: The script sends the processed landmarks to the MQTT broker using the `sendMessage` function.
 
+## Breki Hlynsson 2025
