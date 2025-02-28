@@ -2,7 +2,7 @@
 
 # english translation bellow
 
-# Lokaverkefni í Viðmótsforritun – Breki Hlynsson 2025  
+### Lokaverkefni í Viðmótsforritun – Breki Hlynsson 2025  
 Tækniskólinn – Upplýsingatæknibraut  
 
 ## Verkefnalýsing  
@@ -104,7 +104,7 @@ Fyrir handa data-ið þá þarf að keira website-ið sem er í "webclient" sem 
 # LuaMQTT Display client for Minecraft
 
 
-# Final Project in UI Programming – Breki Hlynsson 2025  
+### Final Project in UI Programming – Breki Hlynsson 2025  
 Tækniskólinn – Information Technology Program  
 
 ## Project Description  
