@@ -36,7 +36,7 @@ Verkefnið tókst vel og tókst mér að fá handarstöðu til að birtast í Mi
 - Betrumbæta myndbirtingu í Minecraft, t.d. með *pixels* mögulega notandi [pixelbox](https://github.com/9551-dev/pixelbox_lite).  
 - Bæta við fleiri höndunum og hreyfiviðurkenni fyrir fjölbreyttari samskipti.  
 - Gera notendaviðmótið meira straumlínulagað.
-- Bæta við fleiri eiginleikum, eins og að senda Redstone merki þegar bending er þekkt, notaðu advanced peripherals til að framkvæma háþróað verkefni
+- Bæta við fleiri eiginleikum, eins og að senda Redstone merki þegar bending er þekkt, notaðu advanced peripherals til að framkvæma háþróað task
 
 ## Skjöl og heimildir  
 - LuaMQTT: [https://github.com/geekscape/lua-mqtt](https://github.com/geekscape/lua-mqtt)  
