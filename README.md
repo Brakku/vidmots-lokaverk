@@ -1,4 +1,4 @@
-# LuaMQTT Client fyrir Minecraft
+# LuaMQTT Display client fyrir Minecraft
 
 # english translation bellow
 
@@ -35,7 +35,7 @@ Fyrir handa data-ið þá þarf að keira website-ið sem er í "webclient" sem 
 
 # english translation
 
-# LuaMQTT Client for Minecraft
+# LuaMQTT Display client for Minecraft
 
 [luaMQTT](https://github.com/WhyKickAmooCow/luamqtt-computercraft) is used as the base for the lua client.
 
