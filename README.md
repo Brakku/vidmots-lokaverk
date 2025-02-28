@@ -96,6 +96,10 @@ Fyrir handa data-ið þá þarf að keira website-ið sem er í "webclient" sem 
 
 
 
+https://github.com/user-attachments/assets/25981612-9390-44cc-a3f0-9ca9d290c4f3
+
+
+
 
 
 # english translation
@@ -193,4 +197,5 @@ luaclient.lua
 4. **Prediction**: The `predictWebcam` function processes the webcam feed to recognize gestures and draw landmarks on the canvas.
 5. **Sending Data**: The script sends the processed landmarks to the MQTT broker using the `sendMessage` function.
 
-## Breki Hlynsson 2025
+
+https://github.com/user-attachments/assets/25981612-9390-44cc-a3f0-9ca9d290c4f3
