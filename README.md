@@ -35,7 +35,8 @@ Aðalvandamálið var að koma gögnum til tölvunnar. Ég vissi að hægt væri
 Verkefnið tókst vel og tókst mér að fá handarstöðu til að birtast í Minecraft í rauntíma með ASCII list. Ef ég myndi halda áfram með verkefnið myndi ég vilja:  
 - Betrumbæta myndbirtingu í Minecraft, t.d. með *pixels* mögulega notandi [pixelbox](https://github.com/9551-dev/pixelbox_lite).  
 - Bæta við fleiri höndunum og hreyfiviðurkenni fyrir fjölbreyttari samskipti.  
-- Gera notendaviðmótið meira straumlínulagað.  
+- Gera notendaviðmótið meira straumlínulagað.
+- Bæta við fleiri eiginleikum, eins og að senda Redstone merki þegar bending er þekkt, notaðu advanced peripherals til að framkvæma háþróað verkefni
 
 ## Skjöl og heimildir  
 - LuaMQTT: [https://github.com/geekscape/lua-mqtt](https://github.com/geekscape/lua-mqtt)  
@@ -138,7 +139,8 @@ The biggest challenge was transferring the data to the computer. I knew that HTT
 ## Outcome and Next Steps  
 The project was successful, and I was able to display hand positions in Minecraft in real-time using ASCII art. If I were to continue developing the project, I would:  
 - Improve the image rendering in Minecraft, possibly using [pixelbox](https://github.com/9551-dev/pixelbox_lite).  
-- Add support for multiple hands and more advanced motion recognition.   
+- Add support for multiple hands and more advanced motion recognition.
+- Add more features, like sending a Redstone signal when a gesture is recognized, use advanced peripherals to preform an advanced task
 
 ## Documentation and References  
 - LuaMQTT: [https://github.com/geekscape/lua-mqtt](https://github.com/geekscape/lua-mqtt)  
