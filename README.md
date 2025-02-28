@@ -38,7 +38,6 @@ Verkefnið tókst vel og tókst mér að fá handarstöðu til að birtast í Mi
 - Gera notendaviðmótið meira straumlínulagað.  
 
 ## Skjöl og heimildir  
-- Myndir og myndband af frumgerð *(Bættu við slóð þegar tiltæk)*  
 - LuaMQTT: [https://github.com/geekscape/lua-mqtt](https://github.com/geekscape/lua-mqtt)  
 - ComputerCraft: [https://tweaked.cc/](https://tweaked.cc/) 
 
@@ -142,7 +141,6 @@ The project was successful, and I was able to display hand positions in Minecraf
 - Add support for multiple hands and more advanced motion recognition.   
 
 ## Documentation and References  
-- Images and video demonstration *(Add link when available)*  
 - LuaMQTT: [https://github.com/geekscape/lua-mqtt](https://github.com/geekscape/lua-mqtt)  
 - ComputerCraft: [https://tweaked.cc/](https://tweaked.cc/)  
 
